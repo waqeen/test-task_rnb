@@ -40,7 +40,7 @@ contract Wallet is IERC721Receiver {
     // Approve ERC721
     function approveERC721(address _tokenAddress, address _spender) external {
         IERC721 token = IERC721(_tokenAddress);
-        require(token.approve(_spender, token.balanceOf(msg.sender)), "Approve ERC721 failed");
+        token.approve(_spender, token.balanceOf(msg.sender));
         _approvedERC721[_tokenAddress][_spender] = true;
     }
 

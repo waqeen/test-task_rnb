@@ -7,7 +7,7 @@
 const hre = require("hardhat");
 
 async function main() {
-  const feeRecipient = 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 // нужный адрес
+  const feeRecipient = "  0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80" // нужный адрес
   const feePercent = 1 // начальная комиссия
 
   const Wallet = await hre.ethers.getContractFactory("Wallet")
