@@ -20,6 +20,10 @@ contract Wallet is IERC721Receiver {
 		feePercent = _feePercent;
 	}
 
+	// Принимаем ETH
+	receive() external payable {
+    }
+
 	modifier onlyOwner() { //модификатор доступа только для владельца
 		require(msg.sender == owner, "Only owner can use this wallet");
 		_;
@@ -58,7 +62,14 @@ contract Wallet is IERC721Receiver {
 	}
 	//Метод отправки ERC-20  токенов
 
-	function sendERC20(address _tokenAddress, address _to, uint256 _value) external onlyOwner{
+	function sendERC20(
+		address _tokenAddress, 
+		address _to, 
+		uint256 _value
+		) 
+		external 
+		onlyOwner
+	{
 		require(_value > 0, "Amount should be greater than 0");
 		require(_approvedERC20[_tokenAddress][msg.sender], "Sender is not approved for ERC20");
 		IERC20 token = IERC20(_tokenAddress);
@@ -72,22 +83,32 @@ contract Wallet is IERC721Receiver {
 
 	//Метод отправки ERC-721  токенов
 
-	function sendERC721(address _tokenAddress, address _to, uint256 _tokenId) external onlyOwner{
+	function sendERC721(
+		address _tokenAddress, 
+		address _to, 
+		uint256 _tokenId
+	) 
+		external 
+		onlyOwner
+	{
 		IERC721 token = IERC721(_tokenAddress);
 		require(_approvedERC721[_tokenAddress][msg.sender], "Sender is not approved for ERC721");
 		token.safeTransferFrom(address(this), _to, _tokenId);
 
 	}
-	// Принимаем ETH
-	receive() external payable {
-    }
+	
     // Принимаем NFT
     function onERC721Received(
         address,
         address,
         uint256,
         bytes calldata
-    ) external pure override returns (bytes4) {
+    ) 
+	    external 
+	    pure 
+	    override 
+	    returns (bytes4) 
+    {
         return IERC721Receiver.onERC721Received.selector;
     }
 

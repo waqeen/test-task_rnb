@@ -99,7 +99,7 @@ describe("sendERC721", function () {
 	await expect(wallet.sendERC721(erc721Token.address, user1.address, 2)).to.be.revertedWith("Token does not exist");
 });
 
-it("should revert if not enough ERC721 tokens in wallet", async function () {
+  it("should revert if not enough ERC721 tokens in wallet", async function () {
   await erc721Token.mint(wallet.address, 1);
   await expect(wallet.sendERC721(erc721Token.address, user1.address, 2)).to.be.revertedWith("Not enough tokens");
 		});
